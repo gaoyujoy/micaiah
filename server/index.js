@@ -12,8 +12,8 @@ async function start () {
     
     //数据库配置
     const mongoOptions = {
-        user: 'gaoyu',
-        pass: 'gjy321456',
+        user: '',
+        pass: '',
         useNewUrlParser: true
     };
     mongoose.connect(`mongodb://127.0.0.1:27017/gaoyublog`, mongoOptions); // 数据库链接
