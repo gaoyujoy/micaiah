@@ -1,4 +1,4 @@
-# micaiah1
+# micaiah
 
 > Nuxt.js project
 
