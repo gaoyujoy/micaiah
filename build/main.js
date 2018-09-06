@@ -227,6 +227,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
+  css: ['~assets/css/assets.css', '~assets/css/common.less', '~assets/css/fontello.css'],
   loading: { color: '#3B8070' },
   /*
    ** Build configuration
@@ -236,14 +237,21 @@ module.exports = {
      ** Run ESLINT on save
      */
     extend: function extend(config, ctx) {
-      if (ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        });
-      }
+      // if (ctx.isClient) {
+      //   config.module.rules.push({
+      //     test: /\.vue$/,
+      //     loader: 'vue-loader',
+      //     options: require('./vue-loader.conf')
+      //   })
+      //   config.module.rules.push({
+      //     enforce: 'pre',
+      //     test: /\.(js|vue)$/,
+      //     exclude: /(node_modules)/
+      //   })
+      // }
+      // if (ctx.isClient) { 
+
+      // }
     }
   }
 };
@@ -263,7 +271,7 @@ var _class = function _class(mongoose) {
 				this.Users = new (__webpack_require__(13))(mongoose, _);
 };
 
-/* harmony default export */ exports["a"] = _class;
+/* unused harmony default export */ var _unused_webpack_default_export = _class;
 
 /***/ },
 /* 7 */
@@ -426,7 +434,7 @@ var start = function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2() {
         var _this = this;
 
-        var app, host, port, mongoOptions, db, DBModule, router, addRouters, config, nuxt, builder;
+        var app, host, port, router, addRouters, config, nuxt, builder;
         return __WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
             while (1) {
                 switch (_context2.prev = _context2.next) {
@@ -436,21 +444,18 @@ var start = function () {
                         port = process.env.PORT || 3000;
 
                         //数据库配置
-
-                        mongoOptions = {
-                            user: 'gaoyu',
-                            pass: 'gjy321456',
-                            useNewUrlParser: true
-                        };
-
-                        __WEBPACK_IMPORTED_MODULE_5_mongoose___default.a.connect('mongodb://127.0.0.1:27017/gaoyublog', mongoOptions); // 数据库链接
-                        db = __WEBPACK_IMPORTED_MODULE_5_mongoose___default.a.connection;
-                        DBModule = new __WEBPACK_IMPORTED_MODULE_6__modules_modules_js__["a" /* default */](__WEBPACK_IMPORTED_MODULE_5_mongoose___default.a);
-
-                        db.on('error', console.error.bind(console, 'connection error:'));
-                        db.once('openUri', function (callback) {
-                            console.log("db opened");
-                        });
+                        // const mongoOptions = {
+                        //     user: 'gaoyu',
+                        //     pass: 'gjy321456',
+                        //     useNewUrlParser: true
+                        // };
+                        // mongoose.connect(`mongodb://127.0.0.1:27017/gaoyublog`, mongoOptions); // 数据库链接
+                        // const db = mongoose.connection;
+                        // const DBModule = new mongooseModules(mongoose);
+                        // db.on('error', console.error.bind(console, 'connection error:'));
+                        // db.once('openUri', function (callback) {
+                        //     console.log("db opened")
+                        // });
 
                         router = __WEBPACK_IMPORTED_MODULE_3_koa_router___default()({
                             prefix: '/api'
@@ -463,7 +468,7 @@ var start = function () {
                                 return f.endsWith('.js');
                             }, files);
                             js_files.forEach(function (name) {
-                                new (__webpack_require__(7)("./" + name).default)(router, DBModule, app).init();
+                                new (__webpack_require__(7)("./" + name).default)(router, null, app).init();
                             });
                         };
 
@@ -481,15 +486,15 @@ var start = function () {
                         // Build in development
 
                         if (!config.dev) {
-                            _context2.next = 20;
+                            _context2.next = 14;
                             break;
                         }
 
                         builder = new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Builder"](nuxt);
-                        _context2.next = 20;
+                        _context2.next = 14;
                         return builder.build();
 
-                    case 20:
+                    case 14:
 
                         app.use(function () {
                             var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
@@ -527,7 +532,7 @@ var start = function () {
                         app.listen(port, host);
                         console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
 
-                    case 23:
+                    case 17:
                     case 'end':
                         return _context2.stop();
                 }

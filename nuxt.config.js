@@ -19,6 +19,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
+  css: ['~assets/css/assets.css', '~assets/css/common.less', '~assets/css/fontello.css'],
   loading: { color: '#3B8070' },
   /*
    ** Build configuration
@@ -28,14 +29,21 @@ module.exports = {
      ** Run ESLINT on save
      */
     extend (config, ctx) {
-      if (ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
+      // if (ctx.isClient) {
+      //   config.module.rules.push({
+      //     test: /\.vue$/,
+      //     loader: 'vue-loader',
+      //     options: require('./vue-loader.conf')
+      //   })
+      //   config.module.rules.push({
+      //     enforce: 'pre',
+      //     test: /\.(js|vue)$/,
+      //     exclude: /(node_modules)/
+      //   })
+      // }
+      // if (ctx.isClient) { 
+        
+      // }
     }
   }
 }

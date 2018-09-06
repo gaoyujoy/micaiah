@@ -11,18 +11,18 @@ async function start () {
     const port = process.env.PORT || 3000
     
     //数据库配置
-    const mongoOptions = {
-        user: '',
-        pass: '',
-        useNewUrlParser: true
-    };
-    mongoose.connect(`mongodb://127.0.0.1:27017/gaoyublog`, mongoOptions); // 数据库链接
-    const db = mongoose.connection;
-    const DBModule = new mongooseModules(mongoose);
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('openUri', function (callback) {
-        console.log("db opened")
-    });
+    // const mongoOptions = {
+    //     user: 'gaoyu',
+    //     pass: 'gjy321456',
+    //     useNewUrlParser: true
+    // };
+    // mongoose.connect(`mongodb://127.0.0.1:27017/gaoyublog`, mongoOptions); // 数据库链接
+    // const db = mongoose.connection;
+    // const DBModule = new mongooseModules(mongoose);
+    // db.on('error', console.error.bind(console, 'connection error:'));
+    // db.once('openUri', function (callback) {
+    //     console.log("db opened")
+    // });
 
     const router = Router({
         prefix: '/api'
@@ -34,7 +34,7 @@ async function start () {
             return f.endsWith('.js');
         }, files);
         js_files.forEach(name => {
-            (new (require(`${__dirname}/routes/${name}`).default)(router, DBModule, app)).init();
+            (new (require(`${__dirname}/routes/${name}`).default)(router, null, app)).init();
         });
     }
     addRouters(__dirname + '/routes');
