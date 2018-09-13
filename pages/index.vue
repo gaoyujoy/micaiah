@@ -38,7 +38,7 @@ export default {
 
 <style scoped lang="less">
     .home-page{
-        background: url(/img/test1.jpg) no-repeat;
+        background: url(/img/bg.jpg) no-repeat;
         width: 100%;
         height: 100%;
         margin: 0;

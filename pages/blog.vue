@@ -8,10 +8,9 @@
                     <div class="js-article-content">
                         <div class="layout--home">
                             <div class="post-list">
-                                <postItem></postItem>
-                                <postItem></postItem>
+                                <postItem :data="item" v-for="item in $store.state.blogs" :key="item._id"></postItem>
                             </div>
-                            <Pager></Pager>
+                            <Pager :page-size="page_size" :page="$store.state.page" :total="$store.state.total" @change-page="changePage"></Pager>
                         </div>
                     </div>
                     <section class="page__comments"></section>
@@ -23,10 +22,15 @@
 <script>
 import Pager from '~/components/Pager.vue'
 import postItem from '~/components/postItem.vue'
+import axios from 'axios'
 export default {
-    asyncData({ req }) {
+    data(){
         return {
+            page_size: 10
         }
+    },
+    created(){
+        this.getDatas(this.$store.state.page);
     },
     components: {
         Pager,
@@ -36,6 +40,24 @@ export default {
         name: 'animation1',
         mode: 'out-in'
     },
+    methods:{
+        changePage(page){
+            this.$store.commit('changePage', page);
+            this.getDatas(page);
+        },
+        getDatas(page){
+            axios.get( `http://localhost:3000/api/posts?page=${page}`).then( response=> {
+                var res = response.data;
+                if (res.code == 0) { 
+                    this.$store.commit('setBlogs', response.data.data);
+                    this.$store.commit('setTotal', response.data.total);
+                }
+            }).catch(error=>{
+                console.log(error)
+            })
+        }
+    },
+
     head() {
         return {
             title: 'Micaiah\'s site - Blog'

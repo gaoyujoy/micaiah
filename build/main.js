@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 18);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -93,7 +93,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
-var _ = __webpack_require__(4);
+var _ = __webpack_require__(5);
 
 var _class = function () {
   function _class(router, DBModule, app) {
@@ -127,18 +127,24 @@ var _class = function () {
 
 /***/ },
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-module.exports = __webpack_require__(15);
-
+module.exports = require("moment");
 
 /***/ },
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(17);
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tools_controller__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_api_js__ = __webpack_require__(0);
@@ -168,18 +174,56 @@ var _class = function (_controller) {
 
     _createClass(_class, [{
         key: 'renders',
-        value: function renders() {
+        value: function renders() {}
+    }, {
+        key: 'actions',
+        value: function actions() {
             var _this2 = this;
 
-            this.router.get('/', function () {
+            this.router.get('/posts', function () {
                 var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
+                    var params, page, where, data, tagsData, newDatas, count;
                     return __WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
                         while (1) {
                             switch (_context.prev = _context.next) {
                                 case 0:
-                                    ctx.body = { code: 0 };
+                                    params = ctx.request.query;
+                                    page = params.page || 1;
+                                    where = {};
+                                    _context.next = 5;
+                                    return _this2.DBModule.Blog.featchBlogs(where, (page - 1) * 10, 10);
 
-                                case 1:
+                                case 5:
+                                    data = _context.sent;
+                                    _context.next = 8;
+                                    return _this2.DBModule.Tag.featchTags({});
+
+                                case 8:
+                                    tagsData = _context.sent;
+
+                                    if (data.data && data.data.length > 0) {
+                                        newDatas = [];
+
+                                        _this2._.each(data.data, function (item) {
+                                            var newData = item.toObject();
+                                            newData.created_at = item.created_at;
+                                            newData.tagName = (_this2._.filter(tagsData.data, function (item2) {
+                                                return item2._id == item.tag;
+                                            })[0] || {}).title;
+                                            newDatas.push(newData);
+                                        });
+                                        data = { code: 0, data: newDatas };
+                                    }
+                                    _context.next = 12;
+                                    return _this2.DBModule.Blog.featchAllBlogs(where);
+
+                                case 12:
+                                    count = _context.sent;
+
+                                    data.total = count.total;
+                                    ctx.body = data;
+
+                                case 15:
                                 case 'end':
                                     return _context.stop();
                             }
@@ -191,10 +235,31 @@ var _class = function (_controller) {
                     return _ref.apply(this, arguments);
                 };
             }());
+            this.router.get('/about', function () {
+                var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
+                    return __WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                        while (1) {
+                            switch (_context2.prev = _context2.next) {
+                                case 0:
+                                    _context2.next = 2;
+                                    return _this2.DBModule.Aboutme.featchAboutme();
+
+                                case 2:
+                                    ctx.body = _context2.sent;
+
+                                case 3:
+                                case 'end':
+                                    return _context2.stop();
+                            }
+                        }
+                    }, _callee2, _this2);
+                }));
+
+                return function (_x3, _x4) {
+                    return _ref2.apply(this, arguments);
+                };
+            }());
         }
-    }, {
-        key: 'actions',
-        value: function actions() {}
     }]);
 
     return _class;
@@ -203,13 +268,13 @@ var _class = function (_controller) {
 /* harmony default export */ exports["default"] = _class;
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 module.exports = require("underscore");
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 module.exports = {
@@ -236,6 +301,7 @@ module.exports = {
     /*
      ** Run ESLINT on save
      */
+    vendor: ['axios'],
     extend: function extend(config, ctx) {
       // if (ctx.isClient) {
       //   config.module.rules.push({
@@ -257,29 +323,31 @@ module.exports = {
 };
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _ = __webpack_require__(4);
+var _ = __webpack_require__(5);
 
 var _class = function _class(mongoose) {
 				_classCallCheck(this, _class);
 
-				this.Users = new (__webpack_require__(13))(mongoose, _);
+				this.Blog = new (__webpack_require__(15).default)(mongoose);
+				this.Tag = new (__webpack_require__(16).default)(mongoose);
+				this.Aboutme = new (__webpack_require__(14).default)(mongoose);
 };
 
-/* unused harmony default export */ var _unused_webpack_default_export = _class;
+/* harmony default export */ exports["a"] = _class;
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 var map = {
-	"./posts": 3,
-	"./posts.js": 3,
+	"./posts": 4,
+	"./posts.js": 4,
 	"./tools/api": 0,
 	"./tools/api.js": 0,
 	"./tools/controller": 1,
@@ -299,142 +367,260 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 7;
+webpackContext.id = 8;
 
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-module.exports = require("fs");
 
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
-module.exports = require("koa");
+module.exports = require("fs");
 
 /***/ },
 /* 10 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-router");
+module.exports = require("koa");
 
 /***/ },
 /* 11 */
 /***/ function(module, exports) {
 
-module.exports = require("mongoose");
+module.exports = require("koa-router");
 
 /***/ },
 /* 12 */
 /***/ function(module, exports) {
 
-module.exports = require("nuxt");
+module.exports = require("mongoose");
 
 /***/ },
 /* 13 */
+/***/ function(module, exports) {
+
+module.exports = require("nuxt");
+
+/***/ },
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__routes_tools_api_js__ = __webpack_require__(0);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var moment = __webpack_require__(2);
 
-var moment = __webpack_require__(14);
+var _class = function _class(mongoose) {
+    _classCallCheck(this, _class);
 
-module.exports = function () {
-    function _class(mongoose, _) {
-        _classCallCheck(this, _class);
+    var Schema = mongoose.Schema;
 
-        this._ = _;
+    var aboutmeSchema = new Schema({
+        content: String,
+        updateDate: {
+            type: Date,
+            default: Date.now
+        }, // 修改时间
+        date: {
+            type: Date,
+            default: Date.now // 创建时间
+        } });
+    aboutmeSchema.virtual('created_at').get(function () {
+        return moment(this.date).format('YYYY-MM-DD hh:mm:ss');
+    });
+    aboutmeSchema.virtual('updated_at').get(function () {
+        return moment(this.updateDate).format('YYYY-MM-DD hh:mm:ss');
+    });
+    var Aboutme = mongoose.model('Aboutme', aboutmeSchema);
 
-        var Schema = mongoose.Schema;
-
-        var usersSchema = new Schema({
-            nickname: String,
-            passWorld: String,
-            date: {
-                type: Date,
-                default: Date.now
-            }
+    this.featchAboutme = function () {
+        return new Promise(function (resolve, rejects) {
+            Aboutme.findOne({}, function (err, data) {
+                if (err) {
+                    reject('数据库错误');
+                } else {
+                    resolve({ code: 0, data: data });
+                }
+            });
         });
-        usersSchema.virtual('created_at').get(function () {
-            return moment(this.date).format('YYYY-MM-DD hh:mm:ss');
-        });
-        var Users = mongoose.model('Users', usersSchema);
-        this.defaultAdmin();
-    }
+    };
+};
 
-    _createClass(_class, [{
-        key: 'defaultAdmin',
-        value: function defaultAdmin() {
-            console.log('11111111111111');
-            // var self = this;
-            // this.findAdminByName(api.constantValue().admin, function (err, data) {
-            //     if (!err && self._.isEmpty(data)) {
-            //         var admin =
-            //             {
-            //                 nickname: api.constantValue().admin,
-            //                 passWorld: api.encryption('adminadmin')
-            //             }
-            //         self.saveAdmin(admin, function (err, data) {
-            //             if (err) {
-            //                 console.log('admin 用户创建失败');
-            //             }
-            //             else {
-            //                 console.log('admin 用户创建成功！');
-            //             }
-            //         });
-            //     }
-            // });
-        }
-    }]);
-
-    return _class;
-}();
-
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-module.exports = require("moment");
+/* harmony default export */ exports["default"] = _class;
 
 /***/ },
 /* 15 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-module.exports = require("regenerator-runtime");
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var moment = __webpack_require__(2);
+
+var _class = function _class(mongoose) {
+    _classCallCheck(this, _class);
+
+    var Schema = mongoose.Schema;
+
+    var blogSchema = new Schema({
+        title: String,
+        content: String,
+        tag: String,
+        info: String,
+        photo: String,
+        view: {
+            type: Number,
+            default: 0
+        },
+        updateDate: {
+            type: Date,
+            default: Date.now
+        }, // 修改时间
+        date: {
+            type: Date,
+            default: Date.now // 创建时间
+        } });
+    blogSchema.virtual('created_at').get(function () {
+        return moment(this.date).format('YYYY年MM月DD日 HH:mm:ss');
+    });
+    blogSchema.virtual('updated_at').get(function () {
+        return moment(this.updateDate).format('YYYY-MM-DD hh:mm:ss');
+    });
+    var Blog = mongoose.model('Blog', blogSchema);
+
+    this.getBlog = function (_id) {
+        return new Promise(function (resolve, rejects) {
+            Blog.findOne({ _id: _id }, function (err, data) {
+                if (err) {
+                    rejects('数据库错误');
+                } else {
+                    resolve({ code: 0, data: data });
+                }
+            });
+        });
+    };
+
+    this.updateBlog = function (_id, blogInfo) {
+        return new Promise(function (resolve, rejects) {
+            blogInfo.updateDate = Date.now();
+            Blog.update({ _id: _id }, { $set: blogInfo }, function (err, data) {
+                if (err) {
+                    rejects('数据库错误');
+                } else {
+                    resolve({ code: 0, msg: '修改成功', data: data });
+                }
+            });
+        });
+    };
+
+    this.featchBlogs = function (where, skip, limit) {
+        return new Promise(function (resolve, rejects) {
+            Blog.find(where).skip(skip).limit(limit).sort({ date: -1 }).exec(function (err, data) {
+                if (err) {
+                    reject('数据库错误');
+                } else {
+                    resolve({ code: 0, data: data });
+                }
+            });
+        });
+    };
+
+    this.featchAllBlogs = function (where) {
+        return new Promise(function (resolve, rejects) {
+            Blog.find(where, '_id').exec(function (err, count) {
+                if (err) {
+                    reject('数据库错误');
+                } else {
+                    resolve({ code: 0, total: count ? count.length : 0 });
+                }
+            });
+        });
+    };
+};
+
+/* harmony default export */ exports["default"] = _class;
 
 /***/ },
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var moment = __webpack_require__(2);
+
+var _class = function _class(mongoose) {
+    _classCallCheck(this, _class);
+
+    var Schema = mongoose.Schema;
+
+    var tagSchema = new Schema({
+        title: String,
+        updateDate: {
+            type: Date,
+            default: Date.now
+        }, // 修改时间
+        date: {
+            type: Date,
+            default: Date.now // 创建时间
+        } });
+    tagSchema.virtual('created_at').get(function () {
+        return moment(this.date).format('YYYY-MM-DD hh:mm:ss');
+    });
+    tagSchema.virtual('updated_at').get(function () {
+        return moment(this.updateDate).format('YYYY-MM-DD hh:mm:ss');
+    });
+    var Tag = mongoose.model('Tag', tagSchema);
+
+    this.featchTags = function (where) {
+        return new Promise(function (resolve, rejects) {
+            Tag.find(where).sort({ date: -1 }).exec(function (err, data) {
+                if (err) {
+                    reject('数据库错误');
+                } else {
+                    resolve({ code: 0, data: data });
+                }
+            });
+        });
+    };
+};
+
+/* harmony default export */ exports["default"] = _class;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_koa_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_fs__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_fs__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_mongoose__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_mongoose__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_mongoose__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_modules_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_modules_js__ = __webpack_require__(7);
 
 
 var start = function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2() {
         var _this = this;
 
-        var app, host, port, router, addRouters, config, nuxt, builder;
+        var app, host, port, mongoOptions, db, DBModule, router, addRouters, config, nuxt, builder;
         return __WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
             while (1) {
                 switch (_context2.prev = _context2.next) {
@@ -444,18 +630,21 @@ var start = function () {
                         port = process.env.PORT || 3000;
 
                         //数据库配置
-                        // const mongoOptions = {
-                        //     user: 'gaoyu',
-                        //     pass: 'gjy321456',
-                        //     useNewUrlParser: true
-                        // };
-                        // mongoose.connect(`mongodb://127.0.0.1:27017/gaoyublog`, mongoOptions); // 数据库链接
-                        // const db = mongoose.connection;
-                        // const DBModule = new mongooseModules(mongoose);
-                        // db.on('error', console.error.bind(console, 'connection error:'));
-                        // db.once('openUri', function (callback) {
-                        //     console.log("db opened")
-                        // });
+
+                        mongoOptions = {
+                            user: 'gaoyu',
+                            pass: 'gjy321456',
+                            useNewUrlParser: true
+                        };
+
+                        __WEBPACK_IMPORTED_MODULE_5_mongoose___default.a.connect('mongodb://127.0.0.1:27017/gaoyublog', mongoOptions); // 数据库链接
+                        db = __WEBPACK_IMPORTED_MODULE_5_mongoose___default.a.connection;
+                        DBModule = new __WEBPACK_IMPORTED_MODULE_6__modules_modules_js__["a" /* default */](__WEBPACK_IMPORTED_MODULE_5_mongoose___default.a);
+
+                        db.on('error', console.error.bind(console, 'connection error:'));
+                        db.once('openUri', function (callback) {
+                            console.log("db opened");
+                        });
 
                         router = __WEBPACK_IMPORTED_MODULE_3_koa_router___default()({
                             prefix: '/api'
@@ -468,7 +657,7 @@ var start = function () {
                                 return f.endsWith('.js');
                             }, files);
                             js_files.forEach(function (name) {
-                                new (__webpack_require__(7)("./" + name).default)(router, null, app).init();
+                                new (__webpack_require__(8)("./" + name).default)(router, DBModule, app).init();
                             });
                         };
 
@@ -476,7 +665,7 @@ var start = function () {
                         app.use(router.routes(), router.allowedMethods());
 
                         // Import and Set Nuxt.js options
-                        config = __webpack_require__(5);
+                        config = __webpack_require__(6);
 
                         config.dev = !(app.env === 'production');
 
@@ -486,15 +675,15 @@ var start = function () {
                         // Build in development
 
                         if (!config.dev) {
-                            _context2.next = 14;
+                            _context2.next = 20;
                             break;
                         }
 
                         builder = new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Builder"](nuxt);
-                        _context2.next = 14;
+                        _context2.next = 20;
                         return builder.build();
 
-                    case 14:
+                    case 20:
 
                         app.use(function () {
                             var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
@@ -532,7 +721,7 @@ var start = function () {
                         app.listen(port, host);
                         console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
 
-                    case 17:
+                    case 23:
                     case 'end':
                         return _context2.stop();
                 }
