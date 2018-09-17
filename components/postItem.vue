@@ -6,7 +6,7 @@
             </h2>
         </header>
         <div class="article__content" itemprop="description articleBody">
-            <p>{{data.info}}</p>
+            <p v-html="getMarked"></p>
         </div>
         <p class="post-list__readmore">
             <nuxt-link :to="`/blog/${data._id}`">阅读更多</nuxt-link>
@@ -15,18 +15,18 @@
             <meta itemprop="author" content="Tian Qi">
             <ul class="left-col menu">
                 <li>
-                    <nuxt-link class="button button--secondary button--pill button--sm" :to="`/tags/${data.tag}`">{{data.tagName}}</nuxt-link>
+                    <nuxt-link class="button button--secondary button--pill button--sm" :to="`/archive/${data.tag}`">{{data.tagName}}</nuxt-link>
                 </li>
                 <meta itemprop="keywords" content="JavaScript">
             </ul>
             <ul class="right-col menu">
                 <li>
-                    <i class="far fa-calendar-alt"></i>
+                    <i class="fontello icon-calendar" /> 
                     <span itemprop="datePublished">{{data.created_at}}</span>
                 </li>
                 <li itemprop="interactionStatistic" itemscope="" itemtype="http://schema.org/InteractionCounter">
                     <link itemprop="interactionType" href="http://schema.org/WatchAction">
-                    <i class="far fa-eye"></i>
+                    <i class="fontello icon-eye" /> 
                     <span class="js-pageview" itemprop="userInteractionCount" :content="data.view">{{data.view}}</span> 阅读
                 </li>
             </ul>
@@ -34,12 +34,17 @@
     </article>
 </template>
 <script>
+import marked from 'marked'
 export default {
     data() {
         return {
         }
     },
-    
+    computed:{
+        getMarked(){
+            return marked(this.data.info);
+        }
+    },
     props: ['data']
 }
 </script>

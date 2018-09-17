@@ -25,7 +25,7 @@ export default class {
         var Tag = mongoose.model('Tag', tagSchema);
 
         this.featchTags = where => { 
-            return new Promise((resolve, rejects) => {
+            return new Promise((resolve, reject) => {
                 Tag.find(where)
 					.sort({ date: -1 })
 					.exec(function (err, data) {

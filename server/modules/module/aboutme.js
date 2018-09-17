@@ -25,7 +25,7 @@ export default class {
         var Aboutme = mongoose.model('Aboutme', aboutmeSchema);
         
         this.featchAboutme = () => { 
-            return new Promise((resolve, rejects) => {
+            return new Promise((resolve, reject) => {
                 Aboutme.findOne({},(err, data) =>{
                     if (err) {
                         reject('数据库错误');

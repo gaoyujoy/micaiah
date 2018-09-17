@@ -8,7 +8,7 @@ import marked from 'marked'
 import axios from 'axios'
 export default {
     asyncData({ req }) {
-        return axios.get( `http://localhost:3000/api/about`).then( response=> {
+        return axios.get( `/api/about`).then( response=> {
             var res = response.data;
             if (res.code == 0) { 
                 return {html: marked(res.data.content)};

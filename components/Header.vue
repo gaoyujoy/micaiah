@@ -10,7 +10,7 @@
                 </div>
                 <nav>
                     <ul>
-                        <li v-for="(item,index) in menuLinks" :key="index" :class="{'active': item.link==activePath}">
+                        <li v-for="(item,index) in menuLinks" :key="index" :class="{'active': isCurrent(item.link)}">
                             <nuxt-link :to="item.link">{{item.title}}</nuxt-link>
                         </li>
                     </ul>
@@ -37,6 +37,9 @@
             }
         },
         methods:{
+            isCurrent(link){
+                return this.activePath.indexOf(link)>=0;
+            }
         }
     }
 </script>

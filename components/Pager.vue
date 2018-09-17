@@ -1,7 +1,7 @@
 <template>
     <nav class="pagination">
         <p>共计 {{total}} 篇文章，{{page}} 页。</p>
-        <ul class="menu menu--nowrap" v-if="pageBlock.length!=0">
+        <ul class="menu menu--nowrap" v-if="pageBlock.length!=0&&showPage">
             <li>
                 <a :class="['button button--secondary button--circle', {'disabled': page==1}]" @click="changePage(page-1)">
                     <i class="fontello icon-left-open"></i>

@@ -46,7 +46,7 @@ export default {
             this.getDatas(page);
         },
         getDatas(page){
-            axios.get( `http://localhost:3000/api/posts?page=${page}`).then( response=> {
+            axios.get( `/api/posts?page=${page}`).then( response=> {
                 var res = response.data;
                 if (res.code == 0) { 
                     this.$store.commit('setBlogs', response.data.data);
