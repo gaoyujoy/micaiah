@@ -11,7 +11,7 @@ export default {
         return axios.get( `${process.client ? '' : process.env.baseUrl }/api/about`).then( response=> {
             var res = response.data;
             if (res.code == 0) { 
-                return {html: marked(res.data.content)};
+                return {html: marked((res.data||{content:''}).content)};
             }
         }).catch(error=>{
             console.log(error)
