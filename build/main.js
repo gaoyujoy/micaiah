@@ -82,10 +82,7 @@ module.exports = require("moment");
 Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony export (immutable) */ exports["encryption"] = encryption;
 
-function encryption(str) {
-
-    console.log('aaaaaaaaa');
-}
+function encryption(str) {}
 
 /***/ },
 /* 2 */
@@ -752,7 +749,7 @@ var start = function () {
                     case 0:
                         app = new __WEBPACK_IMPORTED_MODULE_1_koa___default.a();
                         host = process.env.HOST || '127.0.0.1';
-                        port = process.env.PORT || 80;
+                        port = process.env.PORT || 3000;
 
                         //数据库配置
 

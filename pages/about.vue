@@ -7,8 +7,8 @@
 import marked from 'marked'
 import axios from 'axios'
 export default {
-    asyncData({ req }) {
-        return axios.get( `/api/about`).then( response=> {
+    asyncData() {
+        return axios.get( `${process.client ? '' : 'http://localhost:3000' }/api/about`).then( response=> {
             var res = response.data;
             if (res.code == 0) { 
                 return {html: marked(res.data.content)};
@@ -16,6 +16,11 @@ export default {
         }).catch(error=>{
             console.log(error)
         })
+    },
+    data(){
+        return {
+            html: ''
+        }
     },
     transition:  {
         name: 'animation1',

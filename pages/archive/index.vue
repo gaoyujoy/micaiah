@@ -24,12 +24,9 @@ export default {
     components: {
         archiveCom
     },
-    methods:{
-        
-    },
     head() {
         return {
-        title: 'Micaiah\'s site - Archive'
+            title: 'Micaiah\'s site - Archive'
         }
     }
 }

@@ -8,7 +8,7 @@ import mongooseModules from './modules/modules.js'
 async function start () {
     const app = new Koa()
     const host = process.env.HOST || '127.0.0.1'
-    const port = process.env.PORT || 80
+    const port = process.env.PORT || 3000
     
     //数据库配置
     const mongoOptions = {
