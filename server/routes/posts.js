@@ -1,5 +1,7 @@
 import controller from './tools/controller'
 var moment = require('moment');
+import { Feed } from "feed"
+import marked from "marked"
 
 export default class extends controller {
 
@@ -79,6 +81,47 @@ export default class extends controller {
             });
             var blogsData = await this.DBModule.Blog.featchAllBlogs(where);
             ctx.body = { code: 0, data: newTags, blogs: blogsDataNew, count: blogsData.total };
+        });
+        this.router.get('/feed', async (ctx, next) => { 
+            const feed = new Feed({
+                title: "Micaiah's BLog",
+                description: "This is my personal feed!",
+                id: "http://example.com/",
+                link: "http://micaiah.cn",
+                image: "http://micaiah.cn/img/bg.jpg",
+                favicon: "http://micaiah.cn/micaiah.ico",
+                copyright: "Micaiah's Site "+(new Date()).getFullYear(),
+                updated: new Date(2018, 9, 19), // optional, default = today
+                generator: "Feed for Node.js", // optional, default = 'Feed for Node.js'
+                author: {
+                  name: "Micaiah",
+                  email: "1058745498@qq.com",
+                  link: "http://micaiah.cn"
+                }
+            });
+            var blogs = await this.DBModule.Blog.featchBlogs({}, 0, 5);
+            this._.forEach(blogs.data, blog => {
+                var item = blog.toObject();
+                feed.addItem({
+                    title: item.title.toString(),
+                    id: item._id,
+                    link: 'http://micaiah.cn/blog/' + item._id,
+                    description: marked(item.info||''),
+                    content: marked(item.content||''),
+                    category: ["blog"],
+                    author: [
+                        {
+                            name: "Micaiah",
+                            email: "1058745498@qq.com",
+                            link: "http://micaiah.cn"
+                        }
+                    ],
+                    date: item.date
+                });
+            });
+            feed.addCategory("Technologie");
+            ctx.response.type = 'xml';
+            ctx.body = feed.rss2();
         });
     }
 }
