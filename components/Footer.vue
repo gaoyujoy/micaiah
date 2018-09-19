@@ -52,7 +52,7 @@
                 <footer class="site-info">
                     <p class="menu menu--center">
                         <span>© Micaiah's Site 2018</span>
-                        <a type="application/rss+xml" href="/feed.xml">RSS</a>
+                        <a type="application/rss+xml" href="/feed.xml" v-if="false">RSS</a>
                     </p>
                     <p>Powered by <a title="Universal Vue.js Applications" href="https://nuxtjs.org/">Nuxt.js</a> &amp; <a title="基于 Node.js 平台的下一代 web 开发框架" href="https://koa.bootcss.com/">Koa.js</a>.</p>
                 </footer>
