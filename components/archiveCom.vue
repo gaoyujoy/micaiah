@@ -13,7 +13,7 @@
             <ul class="menu">
                 <li>
                     <button @click="changeTag('all')" type="button" :class="['button button--secondary button--pill tag-button js-article-tag js-tag-show-all', {'focus':!actid||actid==''}]" data-encode="">
-                        Show All<div class="tag-button__count">13</div>
+                        Show All<div class="tag-button__count" v-if="getTotal!=0">{{getTotal}}</div>
                     </button>
                 </li>
                 <li v-for="tag in tags" :key="tag._id">
@@ -68,6 +68,15 @@ export default {
             searchKey: '',
             tags: [],
             blogs: []
+        }
+    },
+    computed:{
+        getTotal(){
+            var total = 0;
+            for(var i = 0; i < this.tags.length; i++){
+                total+=this.tags[i].count;
+            }
+            return total;
         }
     },
     methods:{
