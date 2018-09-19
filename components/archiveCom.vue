@@ -81,7 +81,7 @@ export default {
     },
     methods:{
         getDatas(getId){
-            var url = `${process.client ? '' : 'http://localhost:3000' }/api/tags?page=${this.page}`;
+            var url = `${process.client ? '' : process.env.baseUrl }/api/tags?page=${this.page}`;
             if(getId&&this.actid&& this.actid!=''){
                 url+=`&id=${this.actid}`;
             }

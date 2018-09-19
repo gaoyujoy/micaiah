@@ -38,7 +38,7 @@ import marked from 'marked'
 import axios from 'axios'
 export default {
     asyncData({ route }) {
-        return axios.get( `${process.client ? '' : 'http://localhost:3000' }/api/post?id=${route.params.id}`).then( response=> {
+        return axios.get( `${process.client ? '' : process.env.baseUrl }/api/post?id=${route.params.id}`).then( response=> {
             var res = response.data;
             if (res.code == 0) { 
                 return {post: res.data};
