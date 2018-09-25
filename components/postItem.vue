@@ -12,7 +12,6 @@
             <nuxt-link :to="`/blog/${data._id}`">阅读更多</nuxt-link>
         </p>
         <div class="article__info clearfix">
-            <meta itemprop="author" content="Tian Qi">
             <ul class="left-col menu">
                 <li>
                     <nuxt-link class="button button--secondary button--pill button--sm" :to="`/archive/${data.tag}`">{{data.tagName}}</nuxt-link>

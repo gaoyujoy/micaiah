@@ -47,7 +47,7 @@ export default {
     },
     methods:{
         changePage(page){
-            if(page==0 || page > this.totalPage){
+            if(page==0 || page > this.totalPage||page=='...'){
                 return false;
             }
             this.$emit('change-page', page);
