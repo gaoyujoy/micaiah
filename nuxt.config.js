@@ -22,7 +22,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  css: ['~assets/css/assets.css', '~assets/css/common.less', '~assets/css/fontello.css'],
+  css: ['highlight.js/styles/railscasts.css','~assets/css/assets.css', '~assets/css/common.less', '~assets/css/fontello.css'],
   loading: { color: '#3B8070' },
   /*
    ** Build configuration
@@ -31,7 +31,7 @@ module.exports = {
     /*
      ** Run ESLINT on save
      */
-    vendor: ['axios'],
+    vendor: ['axios','highlight.js','marked'],
     extend (config, ctx) {
       // if (ctx.isClient) {
       //   config.module.rules.push({

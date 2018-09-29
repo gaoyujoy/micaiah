@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 18);
+/******/ 	return __webpack_require__(__webpack_require__.s = 20);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -132,7 +132,7 @@ var _class = function () {
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(17);
+module.exports = __webpack_require__(19);
 
 
 /***/ },
@@ -144,6 +144,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tools_controller__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_feed__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_feed___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_feed__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_marked__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_marked___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_marked__);
 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -158,6 +162,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var moment = __webpack_require__(0);
+
+
 
 var _class = function (_controller) {
     _inherits(_class, _controller);
@@ -369,6 +375,68 @@ var _class = function (_controller) {
                     return _ref4.apply(this, arguments);
                 };
             }());
+            this.router.get('/feed', function () {
+                var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default.a.mark(function _callee5(ctx, next) {
+                    var feed, blogs;
+                    return __WEBPACK_IMPORTED_MODULE_0_C_Users_Administrator_Desktop_works2_micaiah_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
+                        while (1) {
+                            switch (_context5.prev = _context5.next) {
+                                case 0:
+                                    feed = new __WEBPACK_IMPORTED_MODULE_2_feed__["Feed"]({
+                                        title: "Micaiah's BLog",
+                                        description: "This is my personal feed!",
+                                        id: "http://example.com/",
+                                        link: "http://micaiah.cn",
+                                        image: "http://micaiah.cn/img/bg.jpg",
+                                        favicon: "http://micaiah.cn/micaiah.ico",
+                                        copyright: "Micaiah's Site " + new Date().getFullYear(),
+                                        updated: new Date(2018, 9, 19), // optional, default = today
+                                        generator: "Feed for Node.js", // optional, default = 'Feed for Node.js'
+                                        author: {
+                                            name: "Micaiah",
+                                            email: "1058745498@qq.com",
+                                            link: "http://micaiah.cn"
+                                        }
+                                    });
+                                    _context5.next = 3;
+                                    return _this2.DBModule.Blog.featchBlogs({}, 0, 5);
+
+                                case 3:
+                                    blogs = _context5.sent;
+
+                                    _this2._.forEach(blogs.data, function (blog) {
+                                        var item = blog.toObject();
+                                        feed.addItem({
+                                            title: item.title.toString(),
+                                            id: item._id,
+                                            link: 'http://micaiah.cn/blog/' + item._id,
+                                            description: __WEBPACK_IMPORTED_MODULE_3_marked___default()(item.info || ''),
+                                            content: __WEBPACK_IMPORTED_MODULE_3_marked___default()(item.content || ''),
+                                            category: ["blog"],
+                                            author: [{
+                                                name: "Micaiah",
+                                                email: "1058745498@qq.com",
+                                                link: "http://micaiah.cn"
+                                            }],
+                                            date: item.date
+                                        });
+                                    });
+                                    feed.addCategory("Technologie");
+                                    ctx.response.type = 'xml';
+                                    ctx.body = feed.rss2();
+
+                                case 8:
+                                case 'end':
+                                    return _context5.stop();
+                            }
+                        }
+                    }, _callee5, _this2);
+                }));
+
+                return function (_x9, _x10) {
+                    return _ref5.apply(this, arguments);
+                };
+            }());
         }
     }]);
 
@@ -405,7 +473,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  css: ['~assets/css/assets.css', '~assets/css/common.less', '~assets/css/fontello.css'],
+  css: ['highlight.js/styles/railscasts.css', '~assets/css/assets.css', '~assets/css/common.less', '~assets/css/fontello.css'],
   loading: { color: '#3B8070' },
   /*
    ** Build configuration
@@ -414,7 +482,7 @@ module.exports = {
     /*
      ** Run ESLINT on save
      */
-    vendor: ['axios'],
+    vendor: ['axios', 'highlight.js', 'marked'],
     extend: function extend(config, ctx) {
       // if (ctx.isClient) {
       //   config.module.rules.push({
@@ -718,10 +786,22 @@ var _class = function _class(mongoose) {
 /* 17 */
 /***/ function(module, exports) {
 
-module.exports = require("regenerator-runtime");
+module.exports = require("feed");
 
 /***/ },
 /* 18 */
+/***/ function(module, exports) {
+
+module.exports = require("marked");
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ },
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -1,6 +1,6 @@
 <template>
     <section class="container">
-        <div class="main" v-html="html"></div>
+        <div class="main" v-html="html" v-highlight></div>
     </section>
 </template>
 <script>

@@ -26,7 +26,7 @@
                 </div>
                 <div class="js-article-content">
                     <div class="layout--article">
-                        <div class="article__content" itemprop="articleBody" v-html="getMarked"></div>
+                        <div class="article__content" itemprop="articleBody" v-html="getMarked" v-highlight></div>
                     </div>
                 </div>
             </article>
