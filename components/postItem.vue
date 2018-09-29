@@ -6,7 +6,7 @@
             </h2>
         </header>
         <div class="article__content" itemprop="description articleBody">
-            <p v-html="getMarked" v-highlight></p>
+            <p class="show-markdown-html" v-html="getMarked" v-highlight></p>
         </div>
         <p class="post-list__readmore">
             <nuxt-link :to="`/blog/${data._id}`">阅读更多</nuxt-link>
