@@ -4,7 +4,9 @@
             <div class="page__main js-page-main">
                 <div class="page__main-inner">
                     <Header/>
-                    <nuxt/>
+                    <div class="show-content">
+                        <nuxt/>
+                    </div>
                     <my-footer/>
                 </div>
             </div>
@@ -35,4 +37,7 @@ export default {
 </script>
 
 <style>
+.show-content{
+    padding-bottom: 200px;
+}
 </style>
