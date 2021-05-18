@@ -26,7 +26,7 @@ export default {
     },
     head() {
         return {
-            title: 'Micaiah\'s site - Archive'
+            title: 'Gaoyu\'s site - Archive'
         }
     }
 }

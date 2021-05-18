@@ -84,19 +84,19 @@ export default class extends controller {
         });
         this.router.get('/feed', async (ctx, next) => { 
             const feed = new Feed({
-                title: "Micaiah's BLog",
+                title: "Gaoyu's BLog",
                 description: "This is my personal feed!",
                 id: "http://example.com/",
-                link: "http://micaiah.cn",
-                image: "http://micaiah.cn/img/bg.jpg",
-                favicon: "http://micaiah.cn/micaiah.ico",
-                copyright: "Micaiah's Site "+(new Date()).getFullYear(),
+                link: "http://gaoyurz.com",
+                image: "http://gaoyurz.com/img/bg.jpg",
+                favicon: "http://gaoyurz.com/micaiah.ico",
+                copyright: "Gaoyu's Site "+(new Date()).getFullYear(),
                 updated: new Date(2018, 9, 19), // optional, default = today
                 generator: "Feed for Node.js", // optional, default = 'Feed for Node.js'
                 author: {
-                  name: "Micaiah",
+                  name: "Gaoyu",
                   email: "1058745498@qq.com",
-                  link: "http://micaiah.cn"
+                  link: "http://gaoyurz.com"
                 }
             });
             var blogs = await this.DBModule.Blog.featchBlogs({}, 0, 5);
@@ -105,15 +105,15 @@ export default class extends controller {
                 feed.addItem({
                     title: item.title.toString(),
                     id: item._id,
-                    link: 'http://micaiah.cn/blog/' + item._id,
+                    link: 'http://gaoyurz.com/blog/' + item._id,
                     description: marked(item.info||''),
                     content: marked(item.content||''),
                     category: ["blog"],
                     author: [
                         {
-                            name: "Micaiah",
+                            name: "Gaoyu",
                             email: "1058745498@qq.com",
-                            link: "http://micaiah.cn"
+                            link: "http://gaoyurz.com"
                         }
                     ],
                     date: item.date

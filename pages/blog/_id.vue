@@ -58,7 +58,7 @@ export default {
     },
     head() {
         return {
-            title: 'Micaiah\'s site - About'
+            title: 'Gaoyu\'s site - About'
         }
     }
 }
