@@ -23,7 +23,7 @@
     "less-loader": "^4.1.0",
     "marked": "^0.5.0",
     "moment": "^2.22.2",
-    "mongoose": "^5.2.3",
+    "mongoose": "^5.7.5",
     "nuxt": "latest",
     "source-map-support": "^0.4.15",
     "underscore": "^1.9.1"
