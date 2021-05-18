@@ -7,16 +7,16 @@ import mongooseModules from './modules/modules.js'
 
 async function start () {
     const app = new Koa()
-    const host = process.env.HOST || '127.0.0.1'
+    const host = process.env.HOST || '172.24.171.207'
     const port = process.env.PORT || 3000
     
     //数据库配置
     const mongoOptions = {
-        user: 'gaoyu',
-        pass: 'gjy321456',
+        user: 'micaiah',
+        pass: 'GjY321456',
         useNewUrlParser: true
     };
-    mongoose.connect(`mongodb://127.0.0.1:27017/gaoyublog`, mongoOptions); // 数据库链接
+    mongoose.connect(`mongodb://127.0.0.1:27017/micaiahblog`, mongoOptions); // 数据库链接
     const db = mongoose.connection;
     const DBModule = new mongooseModules(mongoose);
     db.on('error', console.error.bind(console, 'connection error:'));

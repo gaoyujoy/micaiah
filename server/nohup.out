@@ -1,0 +1,24 @@
+
+> micaiah@1.1.0 dev /root/blog/micaiah
+> backpack dev
+
+ DONE  Compiled successfully in 458ms11:10:19 AM
+
+events.js:167
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+Emitted 'error' event at:
+    at lazyFs.read (internal/fs/streams.js:165:12)
+    at FSReqWrap.wrapper [as oncomplete] (fs.js:460:17)
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! micaiah@1.1.0 dev: `backpack dev`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the micaiah@1.1.0 dev script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2018-09-18T03_10_19_520Z-debug.log

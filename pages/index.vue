@@ -14,6 +14,7 @@
             </div>
         </div>
     </div>
+    <div class="home-page-footer"><a href="http://beian.miit.gov.cn/" target="_blank">渝ICP备18012981号</a></div>
   </section>
 </template>
 <script>
@@ -87,5 +88,17 @@ export default {
                 }
             }
         }
+        .home-page-footer{
+          position: fixed;
+          bottom: 0px;
+          width: 100%;
+          text-align: center;
+          height: 30px;
+          line-height: 30px;
+          background-color: #000000;
+          a {
+            font-size: 12px;
+          }
+       }
     }
 </style>

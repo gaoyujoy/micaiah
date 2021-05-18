@@ -3,7 +3,7 @@ module.exports = {
   ** Headers of the page
   */
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+    baseUrl: process.env.BASE_URL || 'http://172.24.171.207:3000'
   },
   head: {
     title: 'starter',
