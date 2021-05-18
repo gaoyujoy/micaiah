@@ -5,7 +5,7 @@
             <div class="home-page-head">
                 <img src="/img/head.jpg"/>
             </div>
-            <h2 itemprop="name" class="title-text">Micaiah</h2>
+            <h2 itemprop="name" class="title-text">Gaoyu</h2>
             <div class="home-page-share">
                 <a rel="nofollow" href="https://github.com/gaoyujoy" class="social__icon icon--twitter"><i class="icon-github-circled-alt2"></i></a>
             </div>
@@ -31,7 +31,7 @@ export default {
   },
   head() {
     return {
-      title: 'Micaiah\'s Site'
+      title: 'Gaoyu\'s Site'
     }
   }
 }

@@ -60,7 +60,7 @@ export default {
 
     head() {
         return {
-            title: 'Micaiah\'s site - Blog'
+            title: 'Gaoyu\'s site - Blog'
         }
     }
 }

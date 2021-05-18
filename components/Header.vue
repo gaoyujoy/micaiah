@@ -6,7 +6,7 @@
                     <div class="header-head">
                         <img src="/img/head.jpg"/>
                     </div>
-                    <a title="Micaiah's Site" href="/">Micaiah's Site</a>
+                    <a title="Gaoyu's Site" href="/">Gaoyu's Site</a>
                 </div>
                 <nav>
                     <ul>
